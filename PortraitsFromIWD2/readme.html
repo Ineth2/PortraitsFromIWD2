@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portraits from Icewind Dale II</title>
+  <style>
+    body, button { background: #b9b3ad; color: #262121; font-family: Verdana, Geneva, sans-serif; font-size: 15px; line-height: 150% }
+    pre, code { font-family: Monaco, "Andale Mono", AndaleMono, "DejaVu Sans Mono", monospace; color: #444141; font-size: inherit }
+    h1, h2, h3 { color:#5a2a11 }
+    h1 { font-size: 34px; margin: 0.5em 0 0.5em 0 }
+    h2 { font-size: 24px; margin: 1.2em 0 0.7em 0 }
+    h3 { font-size: 18px; font-style: italic; /*border-bottom: solid 1px #75594c;*/ margin: 1em 0 0.5em 0 }
+    h4 { font-size: 15px; color:#000; border-bottom: solid 1px #746d6a; margin: 1em 0 0.5em 0 }
+    a { text-decoration: none; color: #5a3d00 }
+    a:hover { color: #723217 }
+    a:active { color: #562612 }
+    p, ul { margin: 0.2em 0 0.2em 0 }
+    p + p, p + ul, p + table { margin-top: 0.6em }
+    ul + p, table + p { margin-top: 0.9em }
+    li + li { margin-top: 0.3em }
+    th, td { vertical-align: top }
+    table.compact { margin: 0.3em 0.6em 0.5em 0.6em }
+    table.compact th { font-weight: normal }
+    table.compact th, table.compact td { padding: 0 5px; text-align: left }
+    table.grid { border-collapse: collapse }
+    table.grid th, table.grid td { border: solid 1px #746d6a }
+    table.grid th { background: #a9a39a }
+    table.comparison { border-collapse: separate; border-spacing: 0.5em; /*width:100%; table-layout:fixed*/ }
+    table.comparison th { background: #3e3a35; padding: 0.3em 0.8em; text-align: left }
+    table.comparison th, table.comparison th code { color: #ada8a1; font-size: 18px }
+    table.comparison td { background: #98918b; padding: 0.8em }
+    table.comparison td.subheader { background: #a9a39a; text-align: center; font-style: italic; padding-bottom: 0.2em }
+    table.comparison, .portrait { background: #a9a39a; border: solid 1px #b6b4b3; border-right-color: #6f6966; border-bottom-color: #6f6966 }
+    .portrait { display: inline-block; vertical-align: top; margin: 0.5em; width: 240px }
+    .portrait img { display: block; width: 240px; height: 377px } /* :} */
+    .portrait .name { color: #201e1d; font-size: 16px; font-weight: bold; text-align: center; padding:0.2em }
+    .portrait .character { color: #201e1d; text-align: center; margin:-0.35em 0.2em 0.23em 0.2em; padding:0 }
+    .portrait .details { padding: 0.5em }
+    .portrait .source { font-weight:bold; margin:0.2em 0 0.15em 0 }
+    .portrait .changes { font-size:92%; color: #293944; font-style:italic; margin: 0.35em 0 0.15em 0; padding-top:0.25em; border-top: dotted 1px #595553  }
+    .portrait.orig .name, div.portrait.orig .details { background: #617f5e }
+    .portrait.orig .name { color: #002000 }
+    .portrait.orig_variant .name, div.portrait.orig_variant .details { background: #7f6364 }
+    .portrait.orig_variant .name { color: #210000 }
+    .list img { width: 76px; height: 118px } /* : */
+    .spoiler { display: table; margin: 0 0 0.3em 0; padding: 0; border-radius: 7px; background: #98918b }
+    .spoiler-header { display: inline-block; padding: 0 1em; font-weight: bold }
+    .spoiler-toggle { display: inline-block; margin: 0.3em; padding: 0.1em 0.5em; background: #bfb7af; border-radius: 4px; border: outset 1px #bfb7af }
+    .spoiler-toggle:hover { background: #c8c1b8; }
+    .spoiler > .spoiler-content { margin: 0 1em 1em 1em; padding: 0.7em; display: none; }
+    .spoiler.open > .spoiler-content { display: block; background: #b9b3ad }
+  </style>
+  <script>
+    window.onload = function() {
+      initializeSpoilers();
+      fixImagesOnLinux();
+    };
+    
+    function initializeSpoilers() {
+      var spoilers = document.getElementsByClassName('spoiler');
+      for (var i = 0; i < spoilers.length; i++) {
+        initializeSpoiler(spoilers[i]);
+      }
+    }
+    function initializeSpoiler(spoiler) {
+      var toggle = spoiler.getElementsByClassName('spoiler-toggle')[0];
+      
+      spoiler.className = 'spoiler';
+      toggle.textContent = 'Show';
+      
+      toggle.onclick = function() {
+        if (spoiler.className == 'spoiler') {
+          spoiler.className = 'spoiler open';
+          toggle.textContent = 'Hide';
+        }
+        else {
+          spoiler.className = 'spoiler';
+          toggle.textContent = 'Show';
+        } 
+      }
+    }
+    
+    // Make images work on Linux if the game folder was tolower'd:
+    function fixImagesOnLinux() {
+      var images = document.getElementsByTagName('img');
+      for (var i = 0; i < images.length; i++) {
+        var image = images[i];
+        if (image.complete) {
+          var isError = image.naturalHeight == 0;
+          if (isError)
+            image.src = image.src.toLowerCase();
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+<h1><i>IWD:EE portrait pack:</i> Portraits from Icewind Dale II</h1>
+
+<table class="compact">
+  <tr><th><b> Version: </b></td><td> 01</td></tr>
+  <tr><th><b> Release date: </b></td><td> Jan 2021</td></tr>
+  <tr><th><b> Links: </b></td><td> <a href="https://forums.beamdog.com/discussion/81240/mod-portraits-from-iwd2/p1">forum thread</a> &bull; <a href="https://github.com/Ineth2/PortraitsFromIWD2/releases">github</a> </td></tr>
+  <tr><th><b> Mod author: </b></td><td> Ineth </td></tr>
+  <tr><th><b> Image artists: </b></td><td> Justin Sweet, and possibly <a href="https://www.igdb.com/games/icewind-dale-ii/credits">other artists</a> at Black Isle Studios back in 2002. </td></tr>
+</table>
+
+<h2 id="intro">Introduction</h2>
+
+<p>This portrait pack consists of the 24 official <i>Icewind Dale II</i> portraits that are not already included in <i>Icewind Dale: Enhanced Edition</i>.</p>
+<p>(I have remastered them to the resolution and aspect ratio required by IWD:EE. Check the forum link above for more info.)</p>
+
+<h2 id="install">Installation</h2>
+
+<h3 id="install_mod">As a mod</h3>
+
+<p>This portrait pack can be installed the same way as most IWD:EE mods:</p>
+
+<ul>
+  <li>
+    <div class="spoiler open">
+      <div class="spoiler-header">Instructions for Windows</div>
+      <button class="spoiler-toggle">Show</button>
+      <div class="spoiler-content">
+        <ol>
+          <li>Find your <i>Icewind Dale: Enhanced Edition</i> game directory.<br>
+          This depends on how you installed the game. Some possible locations are:
+            <table class="compact grid">
+              <tr><th><i> Steam version: </i></th><td> <code>C:\Program Files (x86)\Steam\SteamApps\common\Icewind Dale Enhanced Edition\</code> </td></tr>
+              <tr><th><i> GOG version: </i></th><td> <code>C:\GOG Games\Icewind Dale Enhanced Edition\</code> </td></tr>
+            </table>
+          </li>
+          <li>Extract this mod into the game directory.<br>
+          When done correctly, your game directory will contain the file <code>setup-PortraitsFromIWD2.exe</code> and the folder <code>PortraitsFromIWD2</code>.</li>
+          <li>Double-click <code>setup-PortraitsFromIWD2.exe</code> and follow the instructions on screen.<br>
+          (To help you decide between the normal vs zoomed-in side-bar portraits, refer to the <a href="#layouts">Portrait layouts</a> section below.)</li>
+        </ol>
+        <br>You can run <code>setup-PortraitsFromIWD2.exe</code> again afterwards to uninstall or reinstall the mod.
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="spoiler open">
+      <div class="spoiler-header">Instructions for macOS</div>
+      <button class="spoiler-toggle">Show</button>
+      <div class="spoiler-content">
+        <ol>
+          <li>Find your <i>Icewind Dale: Enhanced Edition</i> game directory.<br>
+          This depends on how you installed the game, and can be a bit difficult to navigate to.
+          See step 1 of <a href="https://forums.beamdog.com/discussion/31155/the-hitchhikers-guide-to-installing-mods-on-osx/p1">this guide</a> for help.</li>
+          <li>Extract this mod into the game directory.<br>
+          When done correctly, your game directory will <i>directly</i> contain the folder <code>PortraitsFromIWD2</code>.</li>
+          <li>Download the <a href="https://github.com/subtledoctor/MacOS_Weidu_Launcher/releases">MacOS Weidu Launcher</a>, unzip it, and drop the <code>.app</code> into your game directory and double-click it there. Then, follow the instructions on screen.<br>
+          (To help you decide between the normal vs zoomed-in side-bar portraits, refer to the <a href="#layouts">Portrait layouts</a> section below.)</li>
+        </ol>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="spoiler open">
+      <div class="spoiler-header">Instructions for Linux</div>
+      <button class="spoiler-toggle">Show</button>
+      <div class="spoiler-content">
+        <p>Making your Linux installation of IWD:EE ready for WeiDU-based mod installers, takes a bit of work &ndash; so you may find it less time-consuming to use the <a href="#install_manual">manual installation</a> method for portraits instead.</p>
+        
+        <p>If you <i>do</i> want to install this portrait pack as a mod, follow <a href="https://www.gibberlings3.net/forums/topic/28516-the-linux-users-guide-to-installing-mods-on-the-enhanced-editions/">this guide</a>.</p>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<p>There are no known incompatibilities or install order requirements relative to other mods.</p>
+
+<h3 id="install_manual">Manual installation</h3>
+
+<p>Alternatively, you can manually copy the portraits into your user account's portraits folder, where the game will find them:</p>
+
+<ul>
+<li>
+<div class="spoiler open">
+  <div class="spoiler-header">Instructions</div>
+  <button class="spoiler-toggle">Show</button>
+  <div class="spoiler-content">
+    <ol>
+    <li>Find your IWD:EE user portraits folder:
+      <table class="compact grid">
+        <tr><th><i> Windows &amp; macOS: </i></th><td> <code>Documents/Icewind Dale - Enhanced Edition/Portraits</code> </td></tr>
+        <tr><th><i> Linux: </i></th><td> <code>.local/share/Icewind Dale - Enhanced Edition/portraits/</code> </td></tr>
+      </table>
+      <small>(The paths shown are relative to your user account's home directory. You have to start the game at least once, for them to be created.)</small>
+    </li>
+    <li>Copy all the <code>.bmp</code> files from the <code>L</code> subfolder of this download, to that location.</li>
+    <li>Copy all the <code>.bmp</code> files from the <code>M</code> subfolder <b>or</b> from the <code>M_zoomed</code> subfolder to that location as well.<br>
+    <small>(Refer to the <a href="#layouts">Portrait layouts</a> section below to help you choose.)</small></li>
+    <li>If you have patch version 2.x of the game, the portraits now appear in the in-game portrait selection list, after the original portraits. <i>(However, unlike when installing the portrait pack as a mod, they're not separated by gender - all portraits show up for both male and female characters.)</i><br>
+    If you have patch version 1.x of the game, a "Custom portraits" button instead appears on the in-game portrait selection screen, allowing you to pick them.</li>
+    </ol>
+  </div>
+</div>
+</ul>
+
+<h2 id="layouts">Portrait layouts</h2>
+
+<p>This portrait pack contains three <code>.bmp</code> files per portrait &ndash; one for each of these layouts:</p>
+
+<table class="comparison"><tr>
+<th><code>L</code></h3></th>
+<th><code>M</code></h3></th>
+<th><code>M_zoomed</h3></th>
+</tr><tr>
+<td>
+  <div style="position:relative; width:297px; height:429px">
+    <img src="L/2FTIF1_L.bmp" width="240x377" height="" style="position:absolute; left:23px; top:22px">
+    <div style="position:absolute; top:0; left:0; width:297px; height:429px; background-image:url('http://i.imgur.com/WSsIbss.png'); pointer-events:none"></div>
+  </div>
+  <p><b>Character sheet portrait</b></p>
+  <p>Cropped like the built-in ones.</p>
+</td>
+<td>
+  <div style="position:relative; width:125px; height:161px">
+    <img src="M/2FTIF1_M.bmp" width="76x118" height="" style="position:absolute; left:25px; top:22px">
+    <div style="position:absolute; top:0; left:0; width:125px; height:161px; background-image:url('http://i.imgur.com/FgCsroj.png'); pointer-events:none"></div>
+  </div>
+  <p><b>Side-bar portrait</b></p>
+  <p>Cropped like the built-in ones.</p>
+</td>
+<td style="max-width: 36em">
+  <div style="position:relative; width:125px; height:161px">
+    <img src="M_zoomed/2FTIF1_M.bmp" width="76x118" height="" style="position:absolute; left:25px; top:22px">
+    <div style="position:absolute; top:0; left:0; width:125px; height:161px; background-image:url('http://i.imgur.com/FgCsroj.png'); pointer-events:none"></div>
+  </div>
+  <p><b>Side-bar portrait</b></p>
+  <p>Cropped differently from the built-in ones:</p>
+  <ul>
+    <li>Zoomed in more closely on the face.</li>
+    <li>Flipped where necessary to make sure no character faces right<br> <small>(because that's where the screen edge is)</small>.
+  </ul>
+  
+  <p>It's up to you whether you want to use this instead of the standard <code>M</code> layout.
+  <small>(See the <a href="#install">Installation</a> section above.)</small></p>
+  
+  <p>If you want the built-in portraits to use this layout as well, install the "<i>Zoomed-in side bar portraits</i>" component of my <a href="https://forums.beamdog.com/discussion/45897/mod-iwd-ee-portrait-variations/p1">IWD:EE Portrait Variations</a> mod.
+</td>
+</tr></table>
+
+<p>Preview of the two side-bar versions for all included portraits:</p>
+
+<table class="comparison"><tr>
+<th><code>M</code></h3></th>
+<th><code>M_zoomed</h3></th>
+</tr><tr>
+<td class="list"><img src="M/2MHUM2_M.bmp"> <img src="M/2MHUM3_M.bmp"> <img src="M/2MHUM4_M.bmp"> <img src="M/2MHUM5_M.bmp"> <img src="M/2MHUM6_M.bmp"> <img src="M/2MHUM7_M.bmp"> <img src="M/2MPAL1_M.bmp"> <img src="M/2MAAS1_M.bmp"> <img src="M/2MELF1_M.bmp"> <img src="M/2MDEF1_M.bmp"> <img src="M/2MDEF2_M.bmp"> <img src="M/2MDWF1_M.bmp"> <img src="M/2MDWF2_M.bmp"> <img src="M/2MGNM1_M.bmp"> <img src="M/2MHAF1_M.bmp"> <img src="M/2FHUM1_M.bmp"> <img src="M/2FHUM2_M.bmp"> <img src="M/2FHUM3_M.bmp"> <img src="M/2FTIF1_M.bmp"> <img src="M/2FELF1_M.bmp"> <img src="M/2FELF2_M.bmp"> <img src="M/2FELF3_M.bmp"> <img src="M/2FDEF1_M.bmp"> <img src="M/2FGNM1_M.bmp"></td>
+<td class="list"><img src="M_zoomed/2MHUM2_M.bmp"> <img src="M_zoomed/2MHUM3_M.bmp"> <img src="M_zoomed/2MHUM4_M.bmp"> <img src="M_zoomed/2MHUM5_M.bmp"> <img src="M_zoomed/2MHUM6_M.bmp"> <img src="M_zoomed/2MHUM7_M.bmp"> <img src="M_zoomed/2MPAL1_M.bmp"> <img src="M_zoomed/2MAAS1_M.bmp"> <img src="M_zoomed/2MELF1_M.bmp"> <img src="M_zoomed/2MDEF1_M.bmp"> <img src="M_zoomed/2MDEF2_M.bmp"> <img src="M_zoomed/2MDWF1_M.bmp"> <img src="M_zoomed/2MDWF2_M.bmp"> <img src="M_zoomed/2MGNM1_M.bmp"> <img src="M_zoomed/2MHAF1_M.bmp"> <img src="M_zoomed/2FHUM1_M.bmp"> <img src="M_zoomed/2FHUM2_M.bmp"> <img src="M_zoomed/2FHUM3_M.bmp"> <img src="M_zoomed/2FTIF1_M.bmp"> <img src="M_zoomed/2FELF1_M.bmp"> <img src="M_zoomed/2FELF2_M.bmp"> <img src="M_zoomed/2FELF3_M.bmp"> <img src="M_zoomed/2FDEF1_M.bmp"> <img src="M_zoomed/2FGNM1_M.bmp"></td>
+</tr></table>
+
+<p><i><u>Note:</u> All portraits in this document are shown at the size at which they are rendered in-game when playing at Full HD resolution [1920x1080] with UI scaling enabled.</i></p>
+
+<h2 id="details">Portrait details</h2>
+
+<p>For each included portrait, the character sheet version (layout <code>L</code>) is shown below:
+
+
+
+
+
+<h3>Male portraits</h3>
+
+
+<div class="portrait">
+<div class="name">2MHUM2</div>
+
+<img src="L/2MHUM2_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 2"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Concepts2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHUM3</div>
+
+<img src="L/2MHUM3_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 3"<br><a href="https://web.archive.org/web/20180906020134/http://www.justinsweet.com/GALLERY/INDEXES/Concepts1.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHUM4</div>
+
+<img src="L/2MHUM4_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 4"<br><a href="https://web.archive.org/web/20180906020134/http://www.justinsweet.com/GALLERY/INDEXES/Concepts1.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHUM5</div>
+
+<img src="L/2MHUM5_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 5"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHUM6</div>
+
+<img src="L/2MHUM6_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 6"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHUM7</div>
+
+<img src="L/2MHUM7_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Human 7"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Concepts2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MPAL1</div>
+
+<img src="L/2MPAL1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Paladin 1"<br><a href="http://press.icewinddale.com/icewind_dale_enhanced_edition/images/male_human_paladin.png">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MAAS1</div>
+
+<img src="L/2MAAS1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Aasimar 1"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MELF1</div>
+
+<img src="L/2MELF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Elf 1"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MDEF1</div>
+
+<img src="L/2MDEF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Dark Elf 1"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MDEF2</div>
+
+<img src="L/2MDEF2_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Dark Elf 2"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MDWF1</div>
+
+<img src="L/2MDWF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Dwarf 1"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Concepts2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MDWF2</div>
+
+<img src="L/2MDWF2_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Dwarf 2"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MGNM1</div>
+
+<img src="L/2MGNM1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Gnome 1"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2MHAF1</div>
+
+<img src="L/2MHAF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Male Halfling 1"
+  </div>
+  
+</div>
+</div>
+
+<h3>Female portraits</h3>
+
+
+<div class="portrait">
+<div class="name">2FHUM1</div>
+
+<img src="L/2FHUM1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Human 1"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/HTMLS/003_ALLX.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FHUM2</div>
+
+<img src="L/2FHUM2_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Human 2"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/HTMLS/003_ALLX.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FHUM3</div>
+
+<img src="L/2FHUM3_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Human 3"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/HTMLS/003_ALLX.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FTIF1</div>
+
+<img src="L/2FTIF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Tiefling 1"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FELF1</div>
+
+<img src="L/2FELF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Elf 1"
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FELF2</div>
+
+<img src="L/2FELF2_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Elf 2"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/HTMLS/030_halfelfpriestes3.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FELF3</div>
+
+<img src="L/2FELF3_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Elf 3"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration3.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FDEF1</div>
+
+<img src="L/2FDEF1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Dark Elf 1"<br><a href="https://web.archive.org/web/http://www.justinsweet.com/GALLERY/INDEXES/Illustration2.html">by Justin Sweet</a>
+  </div>
+  
+</div>
+</div>
+<div class="portrait">
+<div class="name">2FGNM1</div>
+
+<img src="L/2FGNM1_L.bmp">
+<div class="details">
+  <div class="source">
+  "Female Gnome 1"
+  </div>
+  
+</div>
+</div>
+
+</body>
+</html>

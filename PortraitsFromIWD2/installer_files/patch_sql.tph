@@ -1,0 +1,35 @@
+/*
+ * The mod installer uses this WeiDU script to patch the bgee.sql file
+ * bundled with IWD:EE v1.4, so that the added portraits appear on the
+ * portrait selection screen.
+ */
+
+APPEND ~bgee.sql~
+~INSERT INTO portraits ROWS
+(
+	'2FHUM1_', 2,
+	'2FHUM2_', 2,
+	'2FHUM3_', 2,
+	'2MHUM2_', 1,
+	'2MHUM3_', 1,
+	'2MHUM4_', 1,
+	'2MHUM5_', 1,
+	'2MHUM6_', 1,
+	'2MHUM7_', 1,
+	'2MPAL1_', 1,
+	'2MAAS1_', 1,
+	'2FTIF1_', 2,
+	'2FELF1_', 2,
+	'2FELF2_', 2,
+	'2FELF3_', 2,
+	'2MELF1_', 1,
+	'2FDEF1_', 2,
+	'2MDEF1_', 1,
+	'2MDEF2_', 1,
+	'2MDWF1_', 1,
+	'2MDWF2_', 1,
+	'2FGNM1_', 2,
+	'2MGNM1_', 1,
+	'2MHAF1_', 1
+);~
+	BUT_ONLY

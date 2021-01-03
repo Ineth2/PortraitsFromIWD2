@@ -1,0 +1,50 @@
+// Portraits from Icewind Dale II
+// (This WeiDU script is used by the mod installer.)
+
+BACKUP ~PortraitsFromIWD2/backup~
+AUTHOR ~in.eth@yandex.com~
+VERSION ~01~
+
+README ~PortraitsFromIWD2/readme-%LANGUAGE%.html~
+       ~PortraitsFromIWD2/readme.html~
+
+LANGUAGE ~English~ ~en_US~
+         ~PortraitsFromIWD2/installer_files/setup_en.tra~
+
+
+/* --------------------------------------------------- */
+
+BEGIN @100 DESIGNATED 100  // ~with normal side-bar portraits~
+SUBCOMPONENT @50
+REQUIRE_PREDICATE ENGINE_IS ~iwdee bgee bg2ee eet~ @1000  // ~This mod is not supported by this game.~
+
+// Install the images
+COPY ~PortraitsFromIWD2/L~ ~override~
+COPY ~PortraitsFromIWD2/M~ ~override~
+
+// Make them appear in the portrait selection screen (for IWD:EE 1.4):
+ACTION_IF (FILE_EXISTS_IN_GAME ~bgee.sql~) THEN BEGIN
+  INCLUDE ~PortraitsFromIWD2/installer_files/patch_sql.tph~
+END
+
+// Make them appear in the portrait selection screen (for IWD:EE 2.5):
+COPY ~PortraitsFromIWD2/installer_files/m_x!iwd2.lua~ ~override/m_x!iwd2.lua~
+
+
+/* --------------------------------------------------- */
+
+BEGIN @200 DESIGNATED 200  // ~with zoomed-in side-bar portraits~
+SUBCOMPONENT @50
+REQUIRE_PREDICATE ENGINE_IS ~iwdee bgee bg2ee eet~ @1000  // ~This mod is not supported by this game.~
+
+// Install the images
+COPY ~PortraitsFromIWD2/L~ ~override~
+COPY ~PortraitsFromIWD2/M_zoomed~ ~override~
+
+// Make them appear in the portrait selection screen (for IWD:EE 1.4):
+ACTION_IF (FILE_EXISTS_IN_GAME ~bgee.sql~) THEN BEGIN
+  INCLUDE ~PortraitsFromIWD2/installer_files/patch_sql.tph~
+END
+
+// Make them appear in the portrait selection screen (for IWD:EE 2.5):
+COPY ~PortraitsFromIWD2/installer_files/m_x!iwd2.lua~ ~override/m_x!iwd2.lua~
